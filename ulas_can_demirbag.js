@@ -104,6 +104,11 @@
         `
         productContainer.insertAdjacentHTML("beforeend", productCard)
       })
+      let favorites = JSON.parse(localStorage.getItem("favorites")) || []
+      favorites.forEach((id) => {
+        const heart = document.querySelector(`.heart[data-id="${id}"]`)
+        if (heart) heart.classList.add("active")
+      })
     } else {
       console.error("ERROR: (.Section2A.has-components) NOT FOUND")
     }
