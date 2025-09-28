@@ -19,13 +19,22 @@
 
   const fetchProducts = async () => {
     try {
+      const isCached = localStorage.getItem("products")
+      if (isCached) {
+        console.log("PRODUCTS FETCHED FROM LOCAL STORAGE")
+        return JSON.parse(isCached)
+      }
+
       const response = await fetch(ProdcutsUrl)
-      if (!response.ok) throw new Error(`HTTP ERROR: ${response.status}`)
+      if (!response.ok) throw new Error(`HTTP ERROR: ${response.status}`)
       const data = await response.json()
+
+      localStorage.setItem("products", JSON.stringify(data))
+      console.log("PRODUCTS FETCHED & CACHED TO LOCAL STORAGE")
       return data
     } catch (error) {
       console.log("FETCH ERROR: PRODUCTS NOT FOUND", error)
-      return {}
+      return []
     }
   }
 

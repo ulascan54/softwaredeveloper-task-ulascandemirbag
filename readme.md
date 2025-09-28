@@ -11,7 +11,7 @@
 - [x] 6: When user clicks on the heart icon should fill it with orange color, and this preference should be stored in the local storage in an array.
 
 - [ ] 7: When the code runs for the second time: 
-  > - [ ] It should retrieve the product list from local storage rather than sending a new fetch request. 
+  > - [X] It should retrieve the product list from local storage rather than sending a new fetch request. 
   > - [ ] Products marked as favorites before are displayed with filled heart icons. 
   
 - [ ] 8: The design must be responsive and suitable for all platforms exactly like the website version.
