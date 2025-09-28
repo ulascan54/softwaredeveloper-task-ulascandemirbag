@@ -4,6 +4,11 @@
     "https://gist.githubusercontent.com/sevindi/8bcbde9f02c1d4abe112809c974e1f49/raw/9bf93b58df623a9b16f1db721cd0a7a539296cf0/products.json"
 
   const init = async () => {
+    if (window.location.pathname !== "/") {
+      console.log("wrong page")
+      return
+    }
+
     const products = await fetchProducts()
     console.log("Products:", products)
 
@@ -19,7 +24,7 @@
       const data = await response.json()
       return data
     } catch (error) {
-      console.log("Ürünler alınamadı:", error)
+      console.log("FETCH ERROR: PRODUCTS NOT FOUND", error)
       return {}
     }
   }
@@ -34,7 +39,7 @@
     if (targetElement) {
       targetElement.insertAdjacentHTML("afterbegin", html)
     } else {
-      console.error("Hedef element (.Section2A.has-components) bulunamadı.")
+      console.error("ERROR: (.Section2A.has-components) NOT FOUND")
     }
   }
 

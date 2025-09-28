@@ -2,7 +2,7 @@
 ---
 - [x] 1: Fetch the product list from this link sending a GET request.
 - [x] 2: Title of the carousel should be "Beğenebileceğinizi düşündüklerimiz".
-- [ ] 3: You code should only run in homepage, if user is on any other page you need to console.log "wrong page". 
+- [x] 3: You code should only run in homepage, if user is on any other page you need to console.log "wrong page". 
 
 - [ ] 4: When a user clicks on a product, the respective product page should open in a new tab.
 
