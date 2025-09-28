@@ -350,6 +350,51 @@
         productContainer.scrollBy({ left: 260, behavior: "smooth" })
       })
     }
+
+    let isMauseDown = false
+    let startingPointX
+    let scrollLeft
+    let isTouch = false
+
+    productContainer.addEventListener("mousedown", (e) => {
+      isMauseDown = true
+      isTouch = false
+      startingPointX = e.pageX - productContainer.offsetLeft
+      scrollLeft = productContainer.scrollLeft
+    })
+
+    productContainer.addEventListener("mouseleave", () => {
+      isMauseDown = false
+    })
+
+    productContainer.addEventListener("mouseup", () => {
+      isMauseDown = false
+      setTimeout(() => {
+        isTouch = false
+      }, 50)
+    })
+
+    productContainer.addEventListener("mousemove", (e) => {
+      if (!isMauseDown) return
+      e.preventDefault()
+      const currentX = e.pageX - productContainer.offsetLeft
+      const distanceFromStart = (currentX - startingPointX) * 2
+      if (Math.abs(distanceFromStart) > 10) {
+        isTouch = true
+        const card = e.target.closest(".card")
+        if (card) card.dataset.dragged = true
+      }
+      productContainer.scrollLeft = scrollLeft - distanceFromStart
+    })
+
+    productContainer.addEventListener("click", (e) => {
+      const card = e.target.closest(".card")
+      if (card) {
+        setTimeout(() => {
+          delete card.dataset.dragged
+        }, 100)
+      }
+    })
   }
 
   init()

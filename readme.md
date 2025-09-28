@@ -14,4 +14,17 @@
   > - [X] It should retrieve the product list from local storage rather than sending a new fetch request. 
   > - [x] Products marked as favorites before are displayed with filled heart icons. 
   
-- [ ] 8: The design must be responsive and suitable for all platforms exactly like the website version.
+- [x] 8: The design must be responsive and suitable for all platforms exactly like the website version.
+---
+
+### Demo: [Youtube Link](https://youtu.be/X3eECTPnIAQ)
+
+---
+#### Example of the carousel: Desktop View
+![Desktop View](images/desktop.png)
+
+#### Example of the carousel: Tablet View
+![Tablet View](images/tablet.png)
+
+#### Example of the carousel: Phone View
+![Phone View](images/phone.png)
