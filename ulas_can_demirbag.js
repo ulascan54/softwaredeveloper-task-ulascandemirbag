@@ -14,7 +14,7 @@
 
     buildHTML(products)
     buildCSS()
-    setEvents()
+    setEvents(products)
   }
 
   const fetchProducts = async () => {
@@ -152,7 +152,18 @@
     document.head.appendChild(styles)
   }
 
-  const setEvents = () => {}
+  const setEvents = (products) => {
+    document.addEventListener("click", (e) => {
+      const card = e.target.closest(".card")
+      if (card) {
+        const product_id = card.getAttribute("data-id")
+        const product = products.find((item) => item.id == product_id)
+        if (product) {
+          window.open(product.url, "_blank")
+        }
+      }
+    })
+  }
 
   init()
 })()
