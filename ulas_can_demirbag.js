@@ -7,9 +7,9 @@
     const products = await fetchProducts()
     console.log("Products:", products)
 
-    // self.buildHTML()
-    // self.buildCSS()
-    // self.setEvents()
+    buildHTML()
+    buildCSS()
+    setEvents()
   }
 
   const fetchProducts = async () => {
@@ -26,29 +26,40 @@
 
   const buildHTML = () => {
     const html = `
-            <div class="container">
-                <h1></h1>
-            </div>
+      <div class="carousel-container">
+        <h2 class="title">Beğenebileceğinizi düşündüklerimiz</h2>
+      </div>
         `
-    $(`.product-detail`).append(html)
+    const targetElement = document.querySelector(".Section2A.has-components")
+    if (targetElement) {
+      targetElement.insertAdjacentHTML("afterbegin", html)
+    } else {
+      console.error("Hedef element (.Section2A.has-components) bulunamadı.")
+    }
   }
 
   const buildCSS = () => {
     const css = `
-      .container{
-        backgorund-color: red;
-        height: 100px;
-        width: 100px;
+      .carousel-container {
+        padding: 20px 15px;
+      }
+      .carousel-container .title {
+        font-family: Quicksand-semibold;
+        font-size: 24px;
+        font-weight: 500;
+        text-transform: capitalize;
+        color: #2b2f33;
+        margin: 0;
       }
     `
-    $(`<style>`).addClass(`carousel-style`).html(css).appendTo(`head`)
+
+    const styles = document.createElement("style")
+    styles.classList.add("carousel-style")
+    styles.textContent = css
+    document.head.appendChild(styles)
   }
 
-  const setEvents = () => {
-    $(``).on(`click`, () => {
-      console.log("clicked")
-    })
-  }
+  const setEvents = () => {}
 
   init()
 })()
