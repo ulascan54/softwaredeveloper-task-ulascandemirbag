@@ -68,7 +68,7 @@
           </div>`
 
           priceHtml = `
-          <div class="price">
+          <div class="price-active">
             <span class="price-main">${
               String(product.price).split(".")[0]
             }</span>
@@ -82,6 +82,7 @@
         const productCard = `
           <div class="card" data-id="${product.id}">
             <div class="content">
+              <div class="heart" data-id="${product.id}">♡</div>
               <img src="${product.img}" alt="${product.name}" class="product-img"/>
               <span class="brand">${product.brand} - </span>
               <span class="name">${product.name}</span>
@@ -120,22 +121,43 @@
           gap: 16px;
           overflow-x: auto;
       }
+
       .carousel-container .product-container .card {
-          width: 243px;
-          height: 383px;
-          border: 1px solid #eee;
-          border-radius: 6px;
-          padding: 10px;
-          cursor: pointer;
-          text-align: center;
-          background: #fff;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
+        position: relative; 
+        width: 243px;
+        height: 383px;
+        border: 1px solid #eee;
+        border-radius: 6px;
+        padding: 10px;
+        cursor: pointer;
+        text-align: center;
+        background: #fff;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .carousel-container .product-container .heart {
+        position: absolute;
+        top: 3px;
+        right: 3px;
+        font-size: 15px;
+        cursor: pointer;
+        user-select: none;
+        color: #ccc;
+        transition: color 0.3s;
+      }
+      
+      .carousel-container .product-container .heart:hover {
+        color: orange;
+      }
+
+      .carousel-container .product-container .heart.active {
+        color: orange;
       }
 
       .carousel-container .product-container .card:hover {
-          border: 1px solid #c2c2c2ff;
+          border: 1px solid #ccc;
       }
 
       .carousel-container .product-container .content {
@@ -168,6 +190,14 @@
           text-align: left;
       }
 
+      .carousel-container .product-container .price-active {
+          font-size: 20px;
+          font-weight: 600;
+          color: #00A365;
+          text-align: left;
+      }
+
+
       .carousel-container .product-container .price-decimal {
           font-size: 14px;
       }
@@ -191,14 +221,35 @@
   }
 
   const setEvents = (products) => {
+    let favorites = JSON.parse(localStorage.getItem("favorites")) || []
+
+    favorites.forEach((id) => {
+      const heart = document.querySelector(`.heart[data-id="${id}"]`)
+      if (heart) heart.classList.add("active")
+    })
+
     document.addEventListener("click", (e) => {
       const card = e.target.closest(".card")
-      if (card) {
+      if (card && !e.target.classList.contains("heart")) {
         const product_id = card.getAttribute("data-id")
         const product = products.find((item) => item.id == product_id)
         if (product) {
           window.open(product.url, "_blank")
         }
+      }
+
+      const heart = e.target.closest(".heart")
+      if (heart) {
+        e.stopPropagation()
+        const id = heart.getAttribute("data-id")
+        if (heart.classList.contains("active")) {
+          heart.classList.remove("active")
+          favorites = favorites.filter((fid) => fid != id)
+        } else {
+          heart.classList.add("active")
+          favorites.push(id)
+        }
+        localStorage.setItem("favorites", JSON.stringify(favorites))
       }
     })
   }
