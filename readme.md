@@ -6,7 +6,7 @@
 
 - [x] 4: When a user clicks on a product, the respective product page should open in a new tab.
 
-- [ ] 5: If “price” and “original_price” are different, show both price like in the example and also calculate the discount amount and show it as well. 
+- [x] 5: If “price” and “original_price” are different, show both price like in the example and also calculate the discount amount and show it as well. 
 
 - [ ] 6: When user clicks on the heart icon should fill it with orange color, and this preference should be stored in the local storage in an array.
 

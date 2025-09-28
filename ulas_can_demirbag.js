@@ -43,25 +43,52 @@
       // list products:
       const productContainer = document.querySelector(".product-container")
       products.forEach((product) => {
+        let priceHtml = ""
+        let originalHtml = ""
+        //calculate discount amount
+        if (product.price === product.original_price) {
+          priceHtml = `
+          <div class="price">
+            <span class="price-main">${
+              String(product.price).split(".")[0]
+            }</span>
+            <span class="price-decimal">,${
+              String(product.price).split(".")[1] || "00"
+            } TL</span>
+          </div>
+        `
+        } else {
+          const discount = Math.round(
+            100 - (product.price / product.original_price) * 100
+          )
+
+          originalHtml = `
+          <div class="orginal-price">
+            ${product.original_price} TL <span class="discount">%${discount}</span>
+          </div>`
+
+          priceHtml = `
+          <div class="price">
+            <span class="price-main">${
+              String(product.price).split(".")[0]
+            }</span>
+            <span class="price-decimal">,${
+              String(product.price).split(".")[1] || "00"
+            } TL</span>
+          </div>
+        `
+        }
+
         const productCard = `
           <div class="card" data-id="${product.id}">
             <div class="content">
-              <img src="${product.img}" alt="${
-          product.name
-        }" class="product-img"/>
+              <img src="${product.img}" alt="${product.name}" class="product-img"/>
               <span class="brand">${product.brand} - </span>
               <span class="name">${product.name}</span>
             </div>
             <div class="footer">
-              <div class="orginal-price">${product.original_price} TL</div>
-              <div class="price">
-                <span class="price-main">${
-                  String(product.price).split(".")[0]
-                }</span>
-                <span class="price-decimal">,${
-                  String(product.price).split(".")[1] || "00"
-                } TL</span>
-              </div>
+                ${originalHtml}
+                ${priceHtml}
             </div>
           </div>
         `
@@ -88,6 +115,7 @@
           margin: 0;
       }
       .carousel-container .product-container {
+          padding: 20px 0;
           display: flex;
           gap: 16px;
           overflow-x: auto;
@@ -143,6 +171,16 @@
       .carousel-container .product-container .price-decimal {
           font-size: 14px;
       }
+
+      .carousel-container .product-container .discount {
+        font-size: 12px;
+        font-weight: 500;
+        background-color: #00A365;
+        border-radius: 16px;
+        color: #fff;
+        padding: 0 4px;
+        margin-left: 6px;
+    }
 
     `
 
